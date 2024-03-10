@@ -15,7 +15,7 @@ public class BotConnect {
         String BotToken = instanceConfig.config.getString("Discord.token");
         if(!BotToken.equals("none")){
             jda = JDABuilder.createDefault(BotToken).setMemberCachePolicy(MemberCachePolicy.ALL).enableIntents(GatewayIntent.GUILD_PRESENCES,GatewayIntent.GUILD_MESSAGES,GatewayIntent.GUILD_MEMBERS,GatewayIntent.MESSAGE_CONTENT, GatewayIntent.DIRECT_MESSAGES).setAutoReconnect(true).build();
-            jda.addEventListener(new serverInfoConnection());
+            jda.addEventListener(new serverInfoConnection(), new serverInfoCommand());
         }
     }
 

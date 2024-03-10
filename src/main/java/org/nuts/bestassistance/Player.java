@@ -2,7 +2,6 @@ package org.nuts.bestassistance;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -32,27 +31,28 @@ public class Player implements Listener {
     @EventHandler
     private void leaveEvent(PlayerQuitEvent e){
         e.setQuitMessage(leave + e.getPlayer().getName());
+        serverInfoConnection.updateBot();
     }
 
     @EventHandler
     public void onClick(PlayerInteractEvent e){
-        Player p = (Player) e.getPlayer();
+        org.bukkit.entity.Player p = e.getPlayer();
         Action a = e.getAction();
         if (a == Action.RIGHT_CLICK_AIR || a == Action.RIGHT_CLICK_BLOCK) {
         }
         if (a == Action.LEFT_CLICK_AIR || a == Action.LEFT_CLICK_BLOCK) {
             Objective obj1 = board.getObjective("click.left");
-            Score s = obj1.getScore((OfflinePlayer) p);
+            Score s = obj1.getScore(p);
             s.setScore(1);
         }
     }
 
     @EventHandler
     public void onDrop(PlayerDropItemEvent e){
-        Player p = (Player) e.getPlayer();
+        org.bukkit.entity.Player p = e.getPlayer();
         if(e.getItemDrop().getItemStack().getType() == Material.CARROT_ON_A_STICK) {
             Objective obj1 = board.getObjective("Item.carrot_drop");
-            Score s = obj1.getScore((OfflinePlayer) p);
+            Score s = obj1.getScore(p);
             s.setScore(1);
             e.setCancelled(true);
         }
