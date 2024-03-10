@@ -1,0 +1,4 @@
+name: BestAssistance
+version: '${project.version}'
+main: org.nuts.bestassistance.BestAssistance
+api-version: '1.20'
