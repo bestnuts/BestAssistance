@@ -1,14 +1,27 @@
 package org.nuts.bestassistance;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Score;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.ScoreboardManager;
 import org.nuts.bestassistance.Discord.serverInfoConnection;
 
 public class Player implements Listener {
     private final String join = "§7[§a+§7] §f";
     private final String leave = "§7[§c-§7] §f";
+
+    private final ScoreboardManager manager = Bukkit.getScoreboardManager();
+    private final Scoreboard board = manager.getMainScoreboard();
 
     @EventHandler
     private void joinEvent(PlayerJoinEvent e){
@@ -19,5 +32,29 @@ public class Player implements Listener {
     @EventHandler
     private void leaveEvent(PlayerQuitEvent e){
         e.setQuitMessage(leave + e.getPlayer().getName());
+    }
+
+    @EventHandler
+    public void onClick(PlayerInteractEvent e){
+        Player p = (Player) e.getPlayer();
+        Action a = e.getAction();
+        if (a == Action.RIGHT_CLICK_AIR || a == Action.RIGHT_CLICK_BLOCK) {
+        }
+        if (a == Action.LEFT_CLICK_AIR || a == Action.LEFT_CLICK_BLOCK) {
+            Objective obj1 = board.getObjective("click.left");
+            Score s = obj1.getScore((OfflinePlayer) p);
+            s.setScore(1);
+        }
+    }
+
+    @EventHandler
+    public void onDrop(PlayerDropItemEvent e){
+        Player p = (Player) e.getPlayer();
+        if(e.getItemDrop().getItemStack().getType() == Material.CARROT_ON_A_STICK) {
+            Objective obj1 = board.getObjective("Item.carrot_drop");
+            Score s = obj1.getScore((OfflinePlayer) p);
+            s.setScore(1);
+            e.setCancelled(true);
+        }
     }
 }

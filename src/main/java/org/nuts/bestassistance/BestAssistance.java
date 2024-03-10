@@ -19,6 +19,7 @@ public final class BestAssistance extends JavaPlugin implements Listener {
 
         PluginManager manager = getServer().getPluginManager();
         manager.registerEvents(this, this);
+        getServer().getPluginManager().registerEvents(new Player(), this);
         BotConnect.onEnable();
     }
 
