@@ -27,6 +27,8 @@ public class Config {
                 config.set("Motd.Line-2", "TEST");
                 config.set("Server.State", "work");
                 config.set("Discord.token", "none");
+                config.set("Discord.guild", "none");
+                config.set("Discord.chat", "none");
                 saveConfig();
             }
             config.load(file);

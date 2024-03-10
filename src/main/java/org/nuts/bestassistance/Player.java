@@ -5,10 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.scoreboard.*;
 import org.nuts.bestassistance.Discord.serverInfoConnection;
 
@@ -57,5 +54,12 @@ public class Player implements Listener {
             s.setScore(1);
             e.setCancelled(true);
         }
+    }
+
+    @EventHandler
+    public void onChat(AsyncPlayerChatEvent e){
+        String originalChat = e.getMessage();
+        org.bukkit.entity.Player p = e.getPlayer();
+        serverInfoConnection.chatToChannel(originalChat, p.getName());
     }
 }
