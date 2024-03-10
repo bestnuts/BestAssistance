@@ -9,10 +9,7 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Score;
-import org.bukkit.scoreboard.Scoreboard;
-import org.bukkit.scoreboard.ScoreboardManager;
+import org.bukkit.scoreboard.*;
 import org.nuts.bestassistance.Discord.serverInfoConnection;
 
 public class Player implements Listener {
@@ -26,6 +23,10 @@ public class Player implements Listener {
     private void joinEvent(PlayerJoinEvent e){
         e.setJoinMessage(join + e.getPlayer().getName());
         serverInfoConnection.updateBot();
+        org.bukkit.entity.Player p = e.getPlayer();
+        Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+        Team team = scoreboard.getTeam("SOLO");
+        team.addPlayer(p);
     }
 
     @EventHandler
