@@ -18,7 +18,9 @@ public class Player implements Listener {
 
     @EventHandler
     private void joinEvent(PlayerJoinEvent e){
-        e.setJoinMessage(join + e.getPlayer().getName());
+        String name = e.getPlayer().getName();
+        serverInfoConnection.chatToChannel("", name, "join");
+        e.setJoinMessage(join + name);
         serverInfoConnection.updateBot();
         org.bukkit.entity.Player p = e.getPlayer();
         Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
@@ -28,7 +30,9 @@ public class Player implements Listener {
 
     @EventHandler
     private void leaveEvent(PlayerQuitEvent e){
-        e.setQuitMessage(leave + e.getPlayer().getName());
+        String name = e.getPlayer().getName();
+        serverInfoConnection.chatToChannel("", name, "quit");
+        e.setQuitMessage(leave + name);
         serverInfoConnection.updateBot();
     }
 
@@ -60,6 +64,6 @@ public class Player implements Listener {
     public void onChat(AsyncPlayerChatEvent e){
         String originalChat = e.getMessage();
         org.bukkit.entity.Player p = e.getPlayer();
-        serverInfoConnection.chatToChannel(originalChat, p.getName());
+        serverInfoConnection.chatToChannel(originalChat, p.getName(), "chat");
     }
 }

@@ -12,10 +12,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.nuts.bestassistance.Data.Config;
+import org.nuts.bestassistance.Util.ChatFormat;
 
 import java.awt.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 
@@ -26,16 +25,13 @@ public class serverInfoCommand extends ListenerAdapter {
         EmbedBuilder embed = new EmbedBuilder();
         switch (cmd) {
             case "인원":
-                Date date = new Date();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy. MM. dd. a hh:mm", Locale.KOREA);
-
                 embed.setTitle("BestCompany");
                 List<String> playerList = new ArrayList<>();
                 for(Player p : Bukkit.getOnlinePlayers()){
                     playerList.add(p.getName());
                 }
                 embed.setDescription(playerList.toString());
-                embed.setFooter(dateFormat.format(date));
+                embed.setFooter(ChatFormat.getDate());
                 embed.setColor(new Color(255, 255, 0));
                 e.getHook().sendMessageEmbeds(embed.build()).setEphemeral(true).queue();
                 break;

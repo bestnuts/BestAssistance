@@ -1,5 +1,11 @@
 package org.nuts.bestassistance.Util;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
 public class ChatFormat {
     public static String colorFormat(String string){
         string = string.replace("&0", "§0");
@@ -25,5 +31,13 @@ public class ChatFormat {
         string = string.replace("&o", "§o");
         string = string.replace("&r", "§r");
         return string;
+    }
+    public static String getDate(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy. MM. dd. a hh:mm", Locale.KOREA);
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+        sdf.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
+        String dateResult = sdf.format(date);
+        return dateResult;
     }
 }
